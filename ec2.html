@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Play YouTube on Click</title>
+  <style>
+    .video-thumbnail {
+      position: relative;
+      width: 530px;
+      max-width: 100%;
+      cursor: pointer;
+      border-style: solid ;
+    }
+    
+    #videoContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="video-thumbnail" onclick="playS3Video()">
+        <img style="height: 200px;width: 500px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVYAAACTCAMAAADiI8ECAAAA8FBMVEX////whiH+/v6mUBcAAACiTRfziCHbdx7ScB3JahzvfgDPbh3738jr2s+gQQD1dAAxMTH96uL5rYWhoaHDw8P19fWoqKj2eBFPT0/2hDZxcXG3t7f++PI5OTnbvKvvgQ35tZHr6+v4n2yCgoL949f4mF/5qHv98uiXl5fPz88lJSV4eHgbGxve3t5HR0eLi4tXV1fJyclmZmb2t4X2fCEPDw/Ur5z4xZ2qWCL3vpLOo43ZbQDyjCvjtJTHYgDznVGgPwD1s37Dknju39b7zrj1awD3ikT818b4m2X0lj/WlWj4yKX6vp/2hjv3kVL7yK/mspENAAAIXUlEQVR4nO2da3uiRhSAJ8S4rd0VDQJGsQlqjKjgpZq227Td3ZqYbTfJ//83PWdmQHQxVyYk5rxfuMwM6utw5gz4CGMEQRAEQRAEQRAEQRAEQRDEi0Jzsn4HW4h2Wiz8SmLTxTndLe7lC3kSmyIodXd3L7+zUzgjsSnhnP4GUoVWEpsWH3a51FDrTv7w7HcS+2R+llZDrcDhIYl9KglaQWyBxD6NRK0gNv/7SdZv7RXiLGR33KAVxO6Q2AfifNz74+zze1zdqJWLpVBwf5yPkPy/yx8Wzn4p36YVQ8EvJPZ+OB+LmPy/y2MyVfj67+4tWnHwIrH3oiiS/3cyTf1h71atPCugGHs3UuK9tfI8lsTexcO18hhLYpNx/nzPo+RjtJLYDcBA9Vch//d/J4/UiqGABq81nC+firs/5nHozz9WKw5en6nHxvjnE6ZUPwpvj9fK0y0SG/EBc6o0tPJQQGIZ4w5S1IqD15sPBSdffvj6eX6SqlbssW9a7MmXYvEnGKUO3+2lqvVtD144UO39hFP/1LWi2PdZf76M+PBpV53WnbertUhaFUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalUBalfDMWrVnIROTKzyv1uexSlqf2avWvrlZPMevmbZX6/70IMIWL/9tauu2Pu1E2tvzeZm0PsQq27endsg57nCuddue4s4D4bJ9oQPXKsRus9aLo5B93NG07Wbb0cpHtn2NVdrg9/oCTCv4NUN2WhM0s7Dk9mrft4jVXmrVmyuvPdf1I7G2sPUbqHhlNyHMLg7szvZohXXXNeWelRrxmrBiui5Lqia2tcQyvljTql3bx+H6PnbXhX7FBy+QnP4glpFW5vWD3qBRq+AuVul2u645DIK+z5jfCoKWL3qdWZ80Br1gKDaNVkhXHKNVDUaGyw9R73YtDQ9R86TXNa1tXW9H6+fnDjvSeWhgztWy4HVrZVo/J6mhhABWKgHf9n2xn8vxS2G1OvRLM7fEhNKWXOdfTS+Xm/lBuJ2g9Zt+FXVpbTF32KU+FxvXcuX1a20tBXVBQhWcSIOBXJagljtYVoNubM7iWmPHGMNxoVlpFDZlCVqb6yG0KTspaF1shVbm4afvV6weehRagdDaLPQ4hEWvO+b+DGhcq1arowaXz1iFH8NClSWTaeLbGIRNUau9ovVY/7b2XhyhvzzV00+xMtFqwWcfwaaB3mBE4lrrblecw2JZYWzEz37GY0SL8VGeaYEUN+ERhJklESK4Vss0crINaj24PBZAaqpdbDrVO/ZF6laz0erWjZYHm9hrB1IrKhrIZU9o9a3uEJIFaZDHZN6Dseu6MxlxZWFJfFO8qSG1RtOBc9B6kKxV69gKYkBGsRUwx5ZRi2mFGKs1RFfjPVAOPG7FMEqhVhk+RlDEY4AnPfdMhnUsGU9CrVcdSXOj1vKFHWazr18r6JmE402o1ZJaK3GtRiOsJnor74zQQsQRiAViZeYyGQtWtK7E1mucAqxzA9PZhN2vVCsPqtDJeita2bpWkw/ts9Is0loToVOLaa2LlQStq5nAZaxXavMbHKWcS0VXBDKKrWPe/zxtfKtWhsntANL9kdQqFPbZilbrnlqP9GiSxZzpOSRXzrFur2UHr1srRoAqE0nSZq18VDJAldTKfBzSAjFnjWJrVxzjTq0L3XaW6wcaVpimP73KUCuPkEMmYsFso9bIXCB7K48JjVrfgiauDAc8LoxEJnCrVudg2TX51KCs0GomWvnsCc5lka9WNmnlp/wY8qycGOwruYiJKbuwaGPcQys7sm0ZRxc65lT76/OD166Vq8jVZTbQMDdo5clU4NXF1GnIukutofSuh3ZhRpGk1T4ut0M07K7TKc9Q57p9CYvptH1SFmzHFawVQXieJ2s1G/FaDdlqILWKrCAnY0Gi1qkeco5XqtvTqX7R6Vzp9hVsOnpUfL4dl1qYKS4C5FrQIQdjMTvFSb/MAMJZ1jjsmiB05ILWkeX5ru9ZVV5LXlnBEMCvYHGtQaS1o+urWlkbjAJ6E7fK5/qWaQWv3aCHF1tZZYRJklGr1fioXqtNYLqvDWEb9/v9hrjY2mqZTHO96DAeXhg0reos1+t7PKPtyiZwqImoF57hHHFVxZl3LptH8sJVrHQ7ggC/N2Cay1sBYVl8KaqZprjCIva6Vq0aVPHrEMXrNxiiZeqaHkp2N12iQFtzN9+tirdxw7M+57KE4tVWGZP5nVe8BTB0k8tWK1b6Rn08toKY1s1fRsZkrhViJCRaQ39D6ZosF2ewkMOS1jjJEjRMnSaV27ssFJpeC2YABk6qSGucTRo8zIsGfW42oRbuNL0h5LEDTHIt0rr6ahs9aOJS4WzU9fzvrbieNcHENNc3YSp7ZwwgrUsRZnQntTRqWRXP8xFvXB9OwtnWCAOwJdJ/0hrjVhXmMPpZQAIzzPKh3mBy9y+5slEZ58Vo5WLr4lz/3mnVkMmt278zBJDWBLOV/mhV7aDar8eShPv86jATkyu8LK1i3mT6FaPVr01q/Va37rt3/GjwRXp9aVqTnDxMaUpen/YqL1BrGpBWJZBWJbwtrW8G0qoE0qoE0qoE0qoE0qoE+v9WJdC/DauB/htbEfRP7oqg5w6og56SoQR6posa6AlEigifl1Wm52WlCz3dTSmP0UpS7+ThWunJmfeAnvOqBHoqsSJiz9Bu0zO0U4Se+K4IZy6NbdQKUimmPpoNWg/zJPUpJGqF0Z9O/yeRoBXyVJL6RD7sFle05g/PSGoKOKe/FZdaC2e/ktR0cE6xx6JWkpoqKHYvX8iT1JTRTosFkqoAjaQSBEEQBEEQBEEQBEEQBEEQqfM/1no/wLAwYNgAAAAASUVORK5CYII=" alt="Video Thumbnail">
+
+        <!-- <div class="play-button"></div><br> -->
+        <h2>This is my EC2 instance project and I have recorded a video of my project and uploaded it to my YouTube account.</h2>
+        <button onclick="showVideo()">▶ Play This Video</button>
+    </div>
+
+ 
+
+  <div id="videoContainer">
+    <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/n72yCQzU-P0?start=21&autoplay=1"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script>
+    function showVideo() {
+      document.getElementById('videoContainer').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
